@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 """
-json_to_table.py — Convert JSON (or JSON Lines) to a flat table and display it.
+json2viz — Convert JSON (or JSON Lines) to a flat table and display/save it.
 
 Usage:
-  python json_to_table.py INPUT.json
+  json2viz INPUT.json
+  # OR if running the script directly:
+  # python json2viz.py INPUT.json
 """
 
 import argparse
