@@ -15,6 +15,7 @@ import sys
 from pathlib import Path
 import pandas as pd
 from pandas import json_normalize
+import os # <-- ADDED: For finding the user's home directory
 
 
 # --- Utility Functions (Kept from Original Code) ---
@@ -77,14 +78,16 @@ def normalize(data, sep="__") -> pd.DataFrame:
     return pd.DataFrame({"value": [data]})
 
 
-# --- Execution Logic (Modified to Display) ---
+# --- Execution Logic (Modified to Display/Save) ---
 
 def main():
-    p = argparse.ArgumentParser(description="Convert JSON/JSONL to a flat table for display.")
+    p = argparse.ArgumentParser(description="Convert JSON/JSONL to a flat table for display or saving.")
     p.add_argument("input", help="Path to input JSON/JSONL file")
     p.add_argument("--sep", default="__", help="Separator for nested keys (default: __)")
-    # New argument to control how many rows to display
     p.add_argument("-n", "--rows", type=int, default=10, help="Number of rows to display (default: 10)")
+    # --- ADDED: Optional Output Argument ---
+    p.add_argument("-o", "--output", nargs='?', const='auto', default=None,
+                   help="Optional path to output CSV file. If provided without a path, it defaults to '<input_name>_flat.csv' in the Downloads folder.")
     args = p.parse_args()
 
     in_path = Path(args.input).expanduser().resolve()
@@ -100,22 +103,49 @@ def main():
 
     df = normalize(data, sep=args.sep)
     if not df.empty:
-        # Apply cleaning function to ensure safe display
-        df = df.applymap(clean_cell)
+        # CORRECTED: Applied .map() to fix the FutureWarning (as discussed previously)
+        df = df.map(clean_cell) 
 
     if df.empty:
         print(f"No records found in {in_path}.", file=sys.stderr)
         sys.exit(0)
 
-    print(f"--- Data from {in_path} (Total Rows: {len(df)}, Columns: {len(df.columns)}) ---")
+    # --- NEW OUTPUT LOGIC ---
+    out_file = None
+    
+    if args.output is not None:
+        if args.output == 'auto':
+            # 1. Determine the automatic file path in Downloads
+            home_dir = Path.home()
+            downloads_dir = home_dir / "Downloads"
+            
+            # Create a safe file name based on input
+            base_name = in_path.stem
+            out_file = downloads_dir / f"{base_name}_flat.csv"
+        else:
+            # 2. Use the path provided by the user
+            out_file = Path(args.output).expanduser().resolve()
 
-    # Display the DataFrame using the pandas 'to_string' or 'head' methods
-    if len(df) > args.rows:
-        print(f"\nShowing the first {args.rows} rows:")
-        print(df.head(args.rows).to_string())
+        # Save the file
+        try:
+            # Set index=False to prevent saving the row numbers (0, 1, 2, ...)
+            df.to_csv(out_file, index=False, encoding='utf-8')
+            print(f"Success! Flattened data saved to {out_file.as_posix()} (Rows: {len(df)}).")
+        except Exception as e:
+            print(f"Error: Failed to save file to {out_file.as_posix()}: {e}", file=sys.stderr)
+            sys.exit(4)
+        
     else:
-        print("\nShowing all rows:")
-        print(df.to_string())
+        # --- ORIGINAL DISPLAY LOGIC (if no output argument is used) ---
+        print(f"--- Data from {in_path} (Total Rows: {len(df)}, Columns: {len(df.columns)}) ---")
+
+        # Display the DataFrame using the pandas 'to_string' or 'head' methods
+        if len(df) > args.rows:
+            print(f"\nShowing the first {args.rows} rows:")
+            print(df.head(args.rows).to_string())
+        else:
+            print("\nShowing all rows:")
+            print(df.to_string())
 
 
 if __name__ == "__main__":
