@@ -20,11 +20,13 @@ Since this project is designed as a command-line tool, it's installed directly f
 
 You need Python 3.6+ and pip installed.
 
+```python3 -m pip install git+https://github.com/Nagoyashi/json2viz.git```
+
 ## Install the Tool
 
 Colleagues can install the tool using one simple command that pulls directly from GitHub:
 
-pip install git+[https://github.com/Nagoyashi/json2viz.git](https://github.com/Nagoyashi/json2viz.git)
+```pip install git+[https://github.com/Nagoyashi/json2viz.git](https://github.com/Nagoyashi/json2viz.git)```
 
 
 # 💡 Usage
@@ -33,7 +35,7 @@ The tool takes a single required argument: the path to your input JSON or JSONL 
 
 ## Basic Syntax
 
-json2viz <INPUT_FILE> [OPTIONS]
+```json2viz <INPUT_FILE> [OPTIONS]```
 
 
 ## Key Examples (List Format for Easy Copying)
@@ -44,13 +46,15 @@ The tool supports two primary modes: displaying data for quick inspection, or sa
 
 Goal: Displays the first 10 rows of the flattened data in the terminal.
 
-Command: json2viz data.json
+Command: 
+```json2viz data.json```
 
 ### Save to CSV (Auto):
 
 Goal: Saves all data to a CSV file in your Downloads folder. This is the recommended mode for visualization.
 
-Command: json2viz data.json -o
+Command: 
+```json2viz data.json -o```
 
 Output Behavior: File is saved as ~/Downloads/data_flat.csv.
 
@@ -58,19 +62,22 @@ Output Behavior: File is saved as ~/Downloads/data_flat.csv.
 
 Goal: Saves all data to a specified CSV file path.
 
-Command: json2viz data.json -o output/report.csv
+Command: 
+```json2viz data.json -o output/report.csv```
 
 ### Custom Separator:
 
 Goal: Keys are flattened using a dot (.), e.g., user.id instead of user__id.
 
-Command: json2viz survey.json --sep . -o
+Command: 
+```json2viz survey.json --sep . -o```
 
 ### Show All Rows in Terminal:
 
 Goal: Displays all records directly in the terminal (useful for smaller files).
 
-Command: json2viz data.json -n 0
+Command: 
+```json2viz data.json -n 0```
 
 
 ## Command-Line Arguments (List Format for Easy Copying)
