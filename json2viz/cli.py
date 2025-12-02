@@ -101,7 +101,7 @@ def main():
     df = normalize(data, sep=args.sep)
     if not df.empty:
         # Apply cleaning function to ensure safe display
-        df = df.applymap(clean_cell)
+        df = df.map(clean_cell)
 
     if df.empty:
         print(f"No records found in {in_path}.", file=sys.stderr)
