@@ -1,113 +1,104 @@
-json2viz
+# json2viz
 
 A lightweight Python command-line utility for converting nested JSON or JSON Lines (JSONL/NDJSON) data into a flattened, tabular CSV format suitable for inspection, visualization, or easy conversion to other formats.
 
-🚀 Key Features
+# 🚀 Key Features
 
-Flattening: Uses pandas.json_normalize to automatically flatten nested objects into columns using a custom separator (default: __).
+1. Flattening: Uses pandas.json_normalize to automatically flatten nested objects into columns using a custom separator (default: __).
 
-JSONL Support: Automatically detects and loads JSON Lines files.
+2. JSONL Support: Automatically detects and loads JSON Lines files.
 
-CSV Output: Natively supports saving the flattened table to a CSV file using the --output flag.
+3. CSV Output: Natively supports saving the flattened table to a CSV file using the --output flag.
 
-Data Cleaning: Cleans cells to remove unsafe control characters and stringifies complex objects (like nested lists/dicts) to ensure compatibility with tabular outputs.
+4. Data Cleaning: Cleans cells to remove unsafe control characters and stringifies complex objects (like nested lists/dicts) to ensure compatibility with tabular outputs.
 
-📦 Installation
+# 📦 Installation
 
 Since this project is designed as a command-line tool, it's installed directly from the source repository.
 
-Prerequisites
+## Prerequisites
 
 You need Python 3.6+ and pip installed.
 
-Install the Tool
+## Install the Tool
 
 Colleagues can install the tool using one simple command that pulls directly from GitHub:
 
 pip install git+[https://github.com/Nagoyashi/json2viz.git](https://github.com/Nagoyashi/json2viz.git)
 
 
-💡 Usage
+# 💡 Usage
 
 The tool takes a single required argument: the path to your input JSON or JSONL file.
 
-Basic Syntax
+## Basic Syntax
 
 json2viz <INPUT_FILE> [OPTIONS]
 
 
-Key Examples
+## Key Examples (List Format for Easy Copying)
 
 The tool supports two primary modes: displaying data for quick inspection, or saving the output for visualization.
 
-Goal
+### Quick View (Default):
 
-Command
+Goal: Displays the first 10 rows of the flattened data in the terminal.
 
-Output Behavior
+Command: json2viz data.json
 
-Quick View (Default)
+### Save to CSV (Auto):
 
-json2viz data.json
+Goal: Saves all data to a CSV file in your Downloads folder. This is the recommended mode for visualization.
 
-Displays the first 10 rows of the flattened data in the terminal.
+Command: json2viz data.json -o
 
-Save to CSV (Auto)
+Output Behavior: File is saved as ~/Downloads/data_flat.csv.
 
-json2viz data.json -o
+### Save to Specific Path:
 
-Saves all data to ~/Downloads/data_flat.csv. This is the recommended mode for visualization.
+Goal: Saves all data to a specified CSV file path.
 
-Save to Specific Path
+Command: json2viz data.json -o output/report.csv
 
-json2viz data.json -o output/report.csv
+### Custom Separator:
 
-Saves all data to the specified CSV file path.
+Goal: Keys are flattened using a dot (.), e.g., user.id instead of user__id.
 
-Custom Separator
+Command: json2viz survey.json --sep . -o
 
-json2viz survey.json --sep . -o
+### Show All Rows in Terminal:
 
-Keys are flattened using a dot (.), e.g., user.id instead of user__id.
+Goal: Displays all records directly in the terminal (useful for smaller files).
 
-Show All Rows in Terminal
+Command: json2viz data.json -n 0
 
-json2viz data.json -n 0
 
-Displays all records directly in the terminal (useful for smaller files).
+## Command-Line Arguments (List Format for Easy Copying)
 
-Command-Line Arguments
+### INPUT.json
 
-Argument
+Description: Path to the input JSON or JSON Lines file.
 
-Description
+Default: (Required)
 
-Default
+### --sep
 
-INPUT.json
+Description: Separator used to join nested keys (e.g., user__id).
 
-Path to the input JSON or JSON Lines file.
+Default: __
 
-(Required)
+### -n, --rows
 
---sep
+Description: Number of rows to display when not saving to a file.
 
-Separator used to join nested keys (e.g., user__id).
+Default: 10
 
-__
+### -o, --output
 
--n, --rows
+Description: Optional. Path to output CSV file. If used without a path, saves to ~/Downloads/<input_name>_flat.csv.
 
-Number of rows to display when not saving to a file.
+Default: (Display mode)
 
-10
-
--o, --output
-
-Optional. Path to output CSV file. If used without a path, saves to ~/Downloads/<input_name>_flat.csv.
-
-(Display mode)
-
-📜 License
+# 📜 License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
