@@ -16,18 +16,18 @@ A lightweight Python command-line utility for converting nested JSON or JSON Lin
 
 Since this project is designed as a command-line tool, it's installed directly from the source repository.
 
-## Prerequisites
+## Prerequisites - install the library
 
-You need Python 3.6+ and pip installed.
+You need Python 3.6+ and pip installed. Download the latest version of Python from 
+Here is the command to install pip and the library:
 
 ```python3 -m pip install git+https://github.com/Nagoyashi/json2viz.git```
 
-## Install the Tool
+If the json2viz module is not found, use this command:
+```python3 -m pip install git+https://github.com/Nagoyashi/json2viz.git --force-reinstall```
 
-Colleagues can install the tool using one simple command that pulls directly from GitHub:
-
-```pip install git+[https://github.com/Nagoyashi/json2viz.git](https://github.com/Nagoyashi/json2viz.git)```
-
+Verify the installation with this command:
+```json2viz -h``` 
 
 # 💡 Usage
 
