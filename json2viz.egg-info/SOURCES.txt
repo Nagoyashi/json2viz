@@ -1,0 +1,10 @@
+README.md
+setup.py
+json2viz/__init__.py
+json2viz/cli.py
+json2viz.egg-info/PKG-INFO
+json2viz.egg-info/SOURCES.txt
+json2viz.egg-info/dependency_links.txt
+json2viz.egg-info/entry_points.txt
+json2viz.egg-info/requires.txt
+json2viz.egg-info/top_level.txt

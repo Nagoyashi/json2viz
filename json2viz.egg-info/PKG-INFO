@@ -1,3 +1,25 @@
+Metadata-Version: 2.4
+Name: json2viz
+Version: 0.1.0
+Summary: A utility to flatten nested JSON/JSONL data into a flat table for visualization.
+Home-page: https://github.com/Nagoyashi/json2viz
+Author: Robert Kiss
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Topic :: Scientific/Engineering :: Information Analysis
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+Requires-Dist: pandas
+Dynamic: author
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
 # json2viz
 
 A lightweight Python command-line utility for converting nested JSON or JSON Lines (JSONL/NDJSON) data into a flattened, tabular format suitable for inspection, visualization, or easy conversion to CSV/Excel.
